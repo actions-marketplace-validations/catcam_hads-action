@@ -1,5 +1,5 @@
 name: "HADS Validator"
-description: "Validate Markdown files against the Human-AI Document Standard (HADS) — ensures AI-readable structure, typed blocks, and version declarations."
+description: "Validate Markdown files against the Human-AI Document Standard — typed blocks, version declarations, AI-readable structure."
 author: "Nikša Barlović"
 branding:
   icon: "check-circle"
