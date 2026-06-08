@@ -44,8 +44,28 @@ jobs:
 |-------|-------------|---------|
 | `paths` | Glob pattern of files to validate | `**/*.md` |
 | `fail_on_violation` | Fail CI if any violations are found | `true` |
+| `add_badge` | Auto-insert HADS badge into README on success | `true` |
 
 Set `fail_on_violation: "false"` to run in report-only mode — violations are printed but CI passes.
+
+### Automatic badge
+
+When `add_badge: "true"` (default), the action automatically inserts this badge into your `README.md` the first time validation passes:
+
+[![HADS Optimized](https://img.shields.io/badge/docs-HADS%20optimized-4A90E2?style=flat-square&logo=markdown&logoColor=white)](https://github.com/catcam/hads)
+
+The commit message includes `[skip ci]` so it won't trigger another workflow run. Requires `permissions: contents: write` in your workflow:
+
+```yaml
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: catcam/hads-action@v1
+```
 
 ---
 

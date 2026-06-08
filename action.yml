@@ -10,6 +10,10 @@ inputs:
     description: "Fail CI if violations are found"
     required: false
     default: "true"
+  add_badge:
+    description: "Automatically add HADS badge to README.md on success"
+    required: false
+    default: "true"
 
 runs:
   using: "composite"
@@ -22,3 +26,10 @@ runs:
     - name: Run HADS Validator
       shell: bash
       run: python "${{ github.action_path }}/validate_all.py" "${{ inputs.paths }}" "${{ inputs.fail_on_violation }}"
+
+    - name: Add HADS badge to README
+      if: ${{ inputs.add_badge == 'true' && github.event_name == 'push' }}
+      shell: bash
+      run: python "${{ github.action_path }}/add_badge.py"
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
