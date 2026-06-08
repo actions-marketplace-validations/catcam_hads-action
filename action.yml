@@ -1,0 +1,24 @@
+name: "HADS Validator"
+description: "Validate Markdown files against the Human-AI Document Standard"
+
+inputs:
+  paths:
+    description: "Glob pattern of files to validate"
+    required: false
+    default: "**/*.md"
+  fail_on_violation:
+    description: "Fail CI if violations are found"
+    required: false
+    default: "true"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Run HADS Validator
+      shell: bash
+      run: python "${{ github.action_path }}/validate_all.py" "${{ inputs.paths }}" "${{ inputs.fail_on_violation }}"
